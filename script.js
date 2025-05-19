@@ -6,9 +6,7 @@ const history = document.querySelector(".history");
 let inputStr = "";
 
 function operate(ins){
-    console.log(ins);
     const inputArr = ins.split(" ");
-    console.log(inputArr);
     const evaluate = {
         "+": (a, b) => +a + +b,
         "-": (a, b) => a - b,
@@ -18,6 +16,7 @@ function operate(ins){
     }
     let op = inputArr[1];
     let i = inputArr.length;
+
     if(i > 5){
         while(i > 5){
             let temp = evaluate[op](inputArr[0], inputArr[2]);
@@ -25,6 +24,11 @@ function operate(ins){
             i -= 2;
         }
     }
+    else if(i < 5){
+        return "enter correct input";
+    }
+    inputStr = "";
+
     return evaluate[op](inputArr[0], inputArr[2]);
 
 }
@@ -54,9 +58,10 @@ function computeInput(){
         current.textContent = inputStr;
 
         if(currentValue === "="){
-            let result = operate(inputStr); 
-            current.textContent = result; 
             history.textContent = inputStr;
+            let result = operate(inputStr);
+            current.textContent = result; 
+            
         }
     }
 }   
