@@ -14,6 +14,7 @@ function operate(ins){
         "÷": (a, b) => a / b === Infinity?"you can't do that": a / b,
         "%": (a, b) => a % b,
     }
+    
     let op = inputArr[1];
     let i = inputArr.length;
 
