@@ -15,15 +15,16 @@ for(let i = 0; i < inpBtns.length; i++){
         btns.textContent = `${inpBtns[i][j]}`;
 
         if(Number.isInteger(+inpBtns[i][j])){
-            btns.classList.add("nums");
+            btns.classList.add("num");
             btns.dataset.num = inpBtns[i][j];
         }
         else{
             btns.classList.add("operators");
+            btns.dataset.operator = inpBtns[i][j];
         }
 
         div.appendChild(btns);
     }
-    div.classList.add("row");
+    div.classList.add(`row`);
     btnContainer.appendChild(div);
 }

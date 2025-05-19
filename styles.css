@@ -6,12 +6,75 @@ body{
     align-items: center;
 }
 
-
-div{
-    border: 2px solid black;
-    margin: 2px;
+.calc{
+    width: 440px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(70, 70, 70);
+    border-radius: 12px;
+    justify-content: center;
+    align-items: center;
 }
 
-.calc{
+.output{
+    background-color: rgb(150, 150, 150);
+    padding: 16px;
+    margin-top: 12px;
+    width: 380px;
+    border: 2px solid black;
+    border-radius: 6px;
+}
 
+.history{
+    height: 40px;
+}
+
+.current{
+    height: 52px;
+}
+
+.btnContainer{
+    display: flex;
+    padding: 2px;
+    flex-direction: column;
+    height: 180px;
+    flex: 2;
+    gap: 2px;
+    background-color: rgb(70, 70, 70);
+    justify-content: center;
+    align-items: center;
+}
+
+.row{
+    height: 60px;
+    display: flex;
+    gap: 2px;
+}
+
+.num, .operators{
+    height: 60px;
+    padding: 0px;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.operators{
+    background-color: rgba(58, 58, 58, 0.979);
+}
+
+.num{
+    background-color: rgba(95, 95, 95, 0.884);
+}
+
+button[data-num = "0"]{
+    width: 150px;
+}
+
+button[data-operator = "="]{
+    width: 150px;
+    background-color: rgb(252, 126, 53);
 }
