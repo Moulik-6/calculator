@@ -10,8 +10,8 @@ function operate(ins){
     const evaluate = {
         "+": (a, b) => +a + +b,
         "-": (a, b) => a - b,
-        "×": (a, b) => a * b,
-        "÷": (a, b) => a / b === Infinity?"you can't do that": a / b,
+        "*": (a, b) => a * b,
+        "/": (a, b) => a / b === Infinity?"you can't do that": a / b,
         "%": (a, b) => a % b,
     }
     
@@ -29,8 +29,9 @@ function operate(ins){
         return "enter correct input";
     }
     inputStr = "";
+    let result = evaluate[op](inputArr[0], inputArr[2])
 
-    return evaluate[op](inputArr[0], inputArr[2]).toFixed(2);
+    return +(result)?result.toFixed(2): result;
 
 }
 
@@ -41,7 +42,7 @@ function computeInput(){
         inputStr += currentValue;
         current.textContent = inputStr;
     }
-    else if(currentValue === "C"){
+    else if(currentValue === "c"){
         inputStr = "";
         current.textContent = inputStr;
         history.textContent = ""
@@ -73,3 +74,28 @@ function computeInput(){
 }   
 
 inputBtns.forEach(btn => btn.addEventListener("click", computeInput));
+
+
+Event.prototype.click = function(){
+    console.log(this);
+    this.computeInput();
+}
+
+const keyOp = {
+    "=": "Enter",
+    "⌫": "Backspace",
+}
+
+
+window.addEventListener("keydown", (e) => {
+    inputBtns.forEach(btn =>{
+        console.log(e.key, btn.dataset.operators);
+        if(Number.isInteger(+btn.textContent) && e.key === btn.dataset.num){
+            btn.click();
+        }
+        else if(e.key === keyOp[btn.dataset.operator] || btn.dataset.operator === e.key){
+            console.log(e.key)
+            btn.click();
+        }
+    })
+});
