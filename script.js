@@ -30,7 +30,7 @@ function operate(ins){
     }
     inputStr = "";
 
-    return evaluate[op](inputArr[0], inputArr[2]);
+    return evaluate[op](inputArr[0], inputArr[2]).toFixed(2);
 
 }
 
@@ -51,7 +51,12 @@ function computeInput(){
         current.textContent = inputStr;
     }
     else if(currentValue === "."){
-        inputStr.includes(".")?inputStr: inputStr += currentValue;
+        if(inputStr.split(" ").length >= 3){
+            inputStr.split(" ")[2].includes(".")?inputStr: inputStr += currentValue;
+        }
+        else{
+            inputStr.includes(".")?inputStr: inputStr += currentValue;
+        }
         current.textContent = inputStr;
     }
     else{
