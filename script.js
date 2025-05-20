@@ -1,5 +1,34 @@
-const inputBtns = Array.from(document.querySelectorAll(".num, .operators"));
+const btnContainer = document.querySelector(".btnContainer");
 
+const inpBtns = [["c", "⌫", "%", "/"], 
+                ["7", "8", "9", "*"], 
+                ["4", "5", "6", "-"], 
+                ["1", "2", "3", "+",],
+                [".", "0", "="]];
+
+for(let i = 0; i < inpBtns.length; i++){
+    const div = document.createElement("div");
+
+    for(let j = 0; j < inpBtns[i].length; j++){
+        const btns = document.createElement("button");
+        btns.textContent = `${inpBtns[i][j]}`;
+
+        if(Number.isInteger(+inpBtns[i][j])){
+            btns.classList.add("num");
+            btns.dataset.num = inpBtns[i][j];
+        }
+        else{
+            btns.classList.add("operators");
+            btns.dataset.operator = inpBtns[i][j];
+        }
+
+        div.appendChild(btns);
+    }
+    div.classList.add(`row`);
+    btnContainer.appendChild(div);
+}
+
+const inputBtns = Array.from(document.querySelectorAll(".num, .operators"));
 const current = document.querySelector(".current");
 const history = document.querySelector(".history");
 
@@ -28,7 +57,6 @@ function operate(ins){
     else if(i < 5){
         return "enter correct input";
     }
-    inputStr = "";
     let result = evaluate[op](inputArr[0], inputArr[2])
 
     return +(result)?result.toFixed(2): result;
@@ -68,7 +96,7 @@ function computeInput(){
             history.textContent = inputStr;
             let result = operate(inputStr);
             current.textContent = result; 
-            
+            inputStr = "";
         }
     }
 }   
@@ -77,8 +105,6 @@ inputBtns.forEach(btn => btn.addEventListener("click", computeInput));
 
 
 Event.prototype.click = function(){
-    console.log(this);
-    this.computeInput();
 }
 
 const keyOp = {
@@ -89,13 +115,20 @@ const keyOp = {
 
 window.addEventListener("keydown", (e) => {
     inputBtns.forEach(btn =>{
-        console.log(e.key, btn.dataset.operators);
-        if(Number.isInteger(+btn.textContent) && e.key === btn.dataset.num){
+        let num = btn.dataset.num;
+        let op = btn.dataset.operator;
+
+        if(num && e.key === num){
             btn.click();
+            btn.classList.add("active");
+            setTimeout(() => btn.classList.remove("active"), 100);
+
         }
-        else if(e.key === keyOp[btn.dataset.operator] || btn.dataset.operator === e.key){
-            console.log(e.key)
+        else if(op && (e.key === keyOp[op] || op === e.key)){
             btn.click();
+            btn.classList.add("active");
+            setTimeout(() => btn.classList.remove("active"), 100);
+
         }
-    })
+    });
 });
